@@ -23,6 +23,8 @@ public class PdfTest {
 	public static void main(String[] args) {
 		XeroClient client = new XeroClient();
 		
+		System.out.println("Git test");
+		
 		List<Contact> contactList = new ArrayList<Contact>();
 		LocalContact contact = new LocalContact();
 		Contact contact2 = new Contact();
