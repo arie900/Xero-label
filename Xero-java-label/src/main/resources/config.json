@@ -1,0 +1,8 @@
+{ 
+	"AppType" : "PRIVATE",
+	"UserAgent": "Demo-stickr",
+	"ConsumerKey" : "SSQZ9K3XM2KQNTGMQPNUHEHC8JFMLH",
+	"ConsumerSecret" : "79WXVSGY2J4TBYNC6G3SXUJO8X0SCR",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "coupon"
+}
