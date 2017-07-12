@@ -9,12 +9,19 @@ import java.util.List;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.xero.api.XeroClient;
 import com.xero.model.Contact;
+
+import contact.GetContact;
+import contact.LocalAddress;
+import contact.LocalContact;
 
 public class CreatePdf implements CreatePdfInterface{
 
@@ -37,31 +44,89 @@ public class CreatePdf implements CreatePdfInterface{
 		return documnet;
 	}
 
-	public Document createByName(String name) throws FileNotFoundException {
-		XeroClient client = new XeroClient();
-		List<Contact> contactList= new ArrayList<Contact>();
-		try {
-			contactList = client.getContacts(null, "Name==\""+name+"\"", null);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+	public Document createByName(String name) throws FileNotFoundException, DocumentException {
+		GetContact getContact = new GetContact();
+		List<LocalContact> localContactList = getContact.getContactByName(name);
+		Document document = new Document();
+		for (LocalContact localContact : localContactList) {
+			PdfWriter.getInstance(document, new FileOutputStream(localContact.getFirstname() + ".pdf"));
+			document.open();
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(localContact.getFirstname() + " "+ localContact.getLastname());
+			paragraph.add(Chunk.NEWLINE);
+			List<LocalAddress> localAddressList = localContact.getAddresses();
+			for (LocalAddress localAddress : localAddressList) {
+				paragraph.add(localAddress.toString());
+			}
+			document.add(paragraph);
 		}
-		Contact contact = contactList.get(0);
-		Rectangle rec = new Rectangle(153,71);
-		Document documnet = new Document(rec);
-		documnet.setPageSize(PageSize.LETTER.rotate());
-		try {
-			PdfWriter.getInstance(documnet, new FileOutputStream(contact.getFirstName() + ".pdf"));
-			documnet.open();
-			documnet.add(new Paragraph(contact.getFirstName() + " " + contact.getLastName()));
-			documnet.add(new Paragraph(contact.getEmailAddress()));
-			documnet.close();
-			System.out.println(documnet.getPageSize());
-		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return documnet;
+		document.close();
+		return document;
+		
 	}
+
+	public Document createByFirstName(String firstName) throws FileNotFoundException, DocumentException {
+		GetContact getContact = new GetContact();
+		List<LocalContact> localContactList = getContact.getContactByFirstName(firstName);
+		Document document = new Document();
+		for (LocalContact localContact : localContactList) {
+			PdfWriter.getInstance(document, new FileOutputStream(localContact.getFirstname() + ".pdf"));
+			document.open();
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(localContact.getFirstname() + " "+ localContact.getLastname());
+			paragraph.add(Chunk.NEWLINE);
+			List<LocalAddress> localAddressList = localContact.getAddresses();
+			for (LocalAddress localAddress : localAddressList) {
+				paragraph.add(localAddress.toString());
+			}
+			document.add(paragraph);
+		}
+		document.close();
+		return document;
+	}
+
+	public Document createByLastName(String lastName) throws FileNotFoundException, DocumentException {
+		GetContact getContact = new GetContact();
+		List<LocalContact> localContactList = getContact.getContactByLastName(lastName);
+		Document document = new Document();
+		for (LocalContact localContact : localContactList) {
+			PdfWriter.getInstance(document, new FileOutputStream(localContact.getFirstname() + ".pdf"));
+			document.open();
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(localContact.getFirstname() + " "+ localContact.getLastname());
+			paragraph.add(Chunk.NEWLINE);
+			List<LocalAddress> localAddressList = localContact.getAddresses();
+			for (LocalAddress localAddress : localAddressList) {
+				paragraph.add(localAddress.toString());
+			}
+			document.add(paragraph);
+		}
+		document.close();
+		return document;
+	}
+
+	public Document createByFullName(String firstName, String lastName) throws FileNotFoundException, DocumentException {
+		GetContact getContact = new GetContact();
+		List<LocalContact> localContactList = getContact.getContactByFullName(firstName, lastName);
+		Document document = new Document();
+		for (LocalContact localContact : localContactList) {
+			PdfWriter.getInstance(document, new FileOutputStream(localContact.getFirstname() + ".pdf"));
+			document.open();
+			Paragraph paragraph = new Paragraph();
+			paragraph.add(localContact.getFirstname() + " "+ localContact.getLastname());
+			paragraph.add(Chunk.NEWLINE);
+			List<LocalAddress> localAddressList = localContact.getAddresses();
+			for (LocalAddress localAddress : localAddressList) {
+				paragraph.add(localAddress.toString());
+			}
+			document.add(paragraph);
+		}
+		document.close();
+		return document;
+	}
+	
+	
+	
 	
 	
 

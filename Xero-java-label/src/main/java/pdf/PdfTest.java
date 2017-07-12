@@ -92,9 +92,11 @@ public class PdfTest {
 //		}
 		CreatePdf first = new CreatePdf();
 		try {
-			first.createByID("fc39b273-4aa2-4785-99ca-24672f6c0000");
-			first.createByName("ABC Furniture");
-		} catch (IOException e) {
+			first.createByName("Trish");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
