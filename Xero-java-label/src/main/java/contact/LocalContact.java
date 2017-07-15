@@ -2,8 +2,6 @@ package contact;
 
 import java.util.List;
 
-import com.xero.model.Address;
-import com.xero.model.Phone;
 
 public class LocalContact {
 	

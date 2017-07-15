@@ -130,7 +130,7 @@ public class LocalAddress {
 		} else if (!localRegion.equals(other.localRegion))
 			return false;
 		return true;
-	};
+	}
 	
 	
 
